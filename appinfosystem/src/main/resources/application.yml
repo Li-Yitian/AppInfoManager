@@ -1,0 +1,24 @@
+##数据源
+spring:
+  mvc:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/appinfodb?useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#mybatis扫描
+mybatis:
+  type-aliases-package: cn.sp.appinfo.pojo
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
+
+logging:
+  level:
+    com:
+      looedu:
+        mapper: info
+
+server:
+  port: 8080
+
+
