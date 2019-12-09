@@ -47,12 +47,9 @@ public class AppinfoServiceImpl implements AppinfoService {
      */
     public Boolean modify(AppInfo appInfo)throws Exception{
         AppInfo app = appinfom.getAppInfoById(appInfo.getId());
-        System.out.println("==="+app);
         if(app.getModifyBy()<0){
-            System.out.println("进了123");
             throw new Exception();
         }
-        System.out.println("=============进了");
         if(app!=null){
             /**
              * 状态为2 or 5 则上架
@@ -61,26 +58,21 @@ public class AppinfoServiceImpl implements AppinfoService {
             switch (app.getStatus()){
                 case 2:
                 case 5:
-                    System.out.println("=============进了2"); appInfo.setStatus(4);
                     if(appinfom.updateAppInfo(appInfo) < 0)
                         throw  new Exception();
                     if(saveModify(app,2)==false){
-                        System.out.println("=============异常最后3");
                         throw  new Exception();
                     }
                     break;
                 case 4:
-                    System.out.println("=============进了3"); appInfo.setStatus(5);
                     if(appinfom.updateAppInfo(appInfo) < 0){
-                        System.out.println("=============异常最后2");
                         throw  new Exception();
                     }
                     break;
             }
         }else{
-            System.out.println("=============异常最后");
             throw  new Exception();
-        } System.out.println("=============没了");
+        }
         return true;
     }
     /**
@@ -173,8 +165,6 @@ public class AppinfoServiceImpl implements AppinfoService {
     @Override
     public Boolean deleteAppInfo(Integer id) throws SQLException {
         AppInfo appInfo = appinfom.getAppInfoById(id);
-        System.out.println(appInfo + "==========" + appinfom.getAppInfoById(id) + "----" + id);
-        System.out.println(appVersionMapper.getAppVersionByid(appInfo.getId()) + "=====\n" + appInfo);
         List<AppVersion> appVersion = appVersionMapper.getAppVersionByid(appInfo.getId());//获得需要删除的APK版本路径
         File filelog = new File(appInfo.getLogoLocPath());//需要删除的图片路径
 

@@ -21,7 +21,6 @@ public class BackendUserServiceImpl implements BackendUserService {
     @Override
     public BackendUser loginBackendUser(String userCode, String password) {
         BackendUser backendUser = backendUserMapper.getBackendUserByuserCodeAndPassword(userCode,password);
-        System.out.println(backendUser.getUserName());
         return backendUser;
     }
 }

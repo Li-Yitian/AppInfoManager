@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 public class DevUserConroller {
     @Resource
     private DevUserService dev;
+
     //去登录页面
     @RequestMapping("/login")
     public String toLogin(){
@@ -23,8 +25,10 @@ public class DevUserConroller {
     @RequestMapping("/dologin")
     public  String login(String devCode, String devPassword, HttpSession session){
         DevUser devUser = dev.getDevUserByDevCodeAndPassword(devCode, devPassword);
+
         if(devUser != null){
             session.setAttribute("devUserSession",devUser);
+            session.setMaxInactiveInterval(100000);
             return "jsp/developer/main";
         }else {
             session.setAttribute("error","账号或密码错误！");

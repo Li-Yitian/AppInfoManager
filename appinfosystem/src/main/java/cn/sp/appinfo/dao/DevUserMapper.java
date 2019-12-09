@@ -16,5 +16,5 @@ import java.util.List;
 public interface DevUserMapper {
     //读取用户信息，根据用户编码与密码
     public DevUser getDevUserByDevCodeAndPassword(@Param("devCode") String devCode, @Param("password") String password);
-
+    public List<DevUser> getDevUserList();
 }

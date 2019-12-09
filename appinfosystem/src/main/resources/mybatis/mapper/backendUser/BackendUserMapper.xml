@@ -6,4 +6,8 @@
     <select id="getBackendUserByuserCodeAndPassword" resultType="BackendUser">
         select * from  backend_user where userCode=#{userCode} and userPassword=#{userPassword}
     </select>
+
+    <select id="getBackendUserList" resultType="BackendUser">
+        select * from appinfodb.backend_user
+    </select>
 </mapper>

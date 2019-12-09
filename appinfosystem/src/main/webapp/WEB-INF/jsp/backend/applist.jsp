@@ -31,13 +31,13 @@
 							<label class="control-label col-md-3 col-sm-3 col-xs-12">所属平台</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
 								<select name="flatformId" class="form-control">
-									<c:if test="${flatFormList != null }">
-									   <option value="">--请选择--</option>
-									   <c:forEach var="dataDictionary" items="${flatFormList}">
-									   		<option <c:if test="${dataDictionary.valueId == flatformId }">selected="selected"</c:if>
-									   		value="${dataDictionary.valueId}">${dataDictionary.valueName}</option>
-									   </c:forEach>
-									</c:if>
+                                    <c:if test="${flatFormList != null }">
+                                        <option value="">--请选择--</option>
+                                        <c:forEach var="dataDictionary" items="${flatFormList}">
+                                            <option <c:if test="${dataDictionary.valueId == flatformId }">selected="selected"</c:if>
+                                                    value="${dataDictionary.valueId}">${dataDictionary.valueName}</option>
+                                        </c:forEach>
+                                    </c:if>
         						</select>
 							</div>
 						</div>

@@ -6,5 +6,7 @@
     <select id="getDevUserByDevCodeAndPassword" resultType="DevUser">
         select * from appinfodb.dev_user where devCode = #{devCode} and devPassword = #{password}
     </select>
-
+<select id="getDevUserList" resultType="DevUser">
+    select * from appinfodb.dev_user
+</select>
 </mapper>

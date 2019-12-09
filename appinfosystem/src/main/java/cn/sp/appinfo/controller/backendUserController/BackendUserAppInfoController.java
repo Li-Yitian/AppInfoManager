@@ -80,23 +80,23 @@ public class BackendUserAppInfoController {
         appinfoService.getAppinfoByPage(appinfo, page);
         model.addAttribute("softwareName",appinfo.getSoftwareName());
         if (appinfo.getFlatformId() != null){
-            model.addAttribute("flatformId",dataDictionarys);
+            model.addAttribute("flatformId",appinfo.getFlatformId());
         }
         //三级菜单
         if(appinfo.getCategoryLevel1() != null){
-            session.setAttribute("categoryLevel1",appinfo.getCategoryLevel1());
+            model.addAttribute("categoryLevel1",appinfo.getCategoryLevel1());
             if(appinfo.getCategoryLevel2()!=null){
-                session.setAttribute("categoryLevel2List", appCategory.getAppCategoryByparentId(appinfo.getCategoryLevel1()));
-                session.setAttribute("categoryLevel2",appinfo.getCategoryLevel2());
+                model.addAttribute("categoryLevel2List", appCategory.getAppCategoryByparentId(appinfo.getCategoryLevel1()));
+                model.addAttribute("categoryLevel2",appinfo.getCategoryLevel2());
                 if(appinfo.getCategoryLevel3()!=null){
-                    session.setAttribute("categoryLevel3List", appCategory.getAppCategoryByparentId(appinfo.getCategoryLevel2()));
-                    session.setAttribute("categoryLevel3",appinfo.getCategoryLevel3());
+                    model.addAttribute("categoryLevel3List", appCategory.getAppCategoryByparentId(appinfo.getCategoryLevel2()));
+                    model.addAttribute("categoryLevel3",appinfo.getCategoryLevel3());
                 }
             }
         }
-        session.setAttribute("pages", page);//分页
-        session.setAttribute("flatFormList", dataDictionarys); //平台
-        session.setAttribute("categoryLevel1List", appCategory.getAppCategoryByparentId(null));
+        model.addAttribute("pages", page);//分页
+        model.addAttribute("flatFormList", dataDictionarys); //平台
+        model.addAttribute("categoryLevel1List", appCategory.getAppCategoryByparentId(null));
         return "jsp/backend/applist";
     }
 

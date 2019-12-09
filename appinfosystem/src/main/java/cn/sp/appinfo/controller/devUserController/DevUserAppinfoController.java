@@ -52,7 +52,6 @@ public class DevUserAppinfoController {
     @RequestMapping("/{appId}/sale.json")
     @ResponseBody
     public Map<String,Object> changeStatus(@PathVariable("appId") Integer appId,Model model,HttpSession session) throws Exception {
-        System.out.println("=====json来了");
         Map<String,Object> map = new HashMap<>();
         DevUser devUser = (DevUser) session.getAttribute("devUserSession");
         map.put("errorCode","0");
@@ -64,8 +63,7 @@ public class DevUserAppinfoController {
         appInfo.setId(appId);
         appInfo.setModifyBy(devUser.getId());
         try {
-            System.out.println("=====来了");
-            if(appinfoService.modify(appInfo)){ System.out.println("=====来了2");
+            if(appinfoService.modify(appInfo)){
                 map.put("resultMsg","success");
             }else {
                 map.put("resultMsg","failed");
@@ -209,7 +207,6 @@ public class DevUserAppinfoController {
 
         AppInfo appInfo = appinfoService.getAppInfoById(id);//App信息
         List<AppVersion> appVersion = appVersionService.getAppVersionListByid(id);//版本信息
-        System.out.println(appInfo.getLogoPicPath());
         model.addAttribute("appInfo", appInfo);
         model.addAttribute("appVersionList", appVersion);
         return "jsp/developer/appinfoview";
@@ -287,7 +284,6 @@ public class DevUserAppinfoController {
                 AppVersion appVersion = new AppVersion();
                 appVersion.setId(id);
                 File file = new File(appVersionService.getNewAppVersionByAppid(appVersion).getApkLocPath());
-                System.out.println(appVersionService.getNewAppVersionByAppid(appVersion).getApkLocPath() + "======" + id);
                 if (file.isFile()) {
                     if (file.delete()) {
                         if (appVersionService.deleteFilePathForNullById(id)) {
@@ -363,8 +359,6 @@ public class DevUserAppinfoController {
         //查询session的登录id
         DevUser devUser = session.getAttribute("devUserSession") != null ? (DevUser) session.getAttribute("devUserSession") : null;
         if (devUser != null) {
-            System.out.println("====" + appinfo);
-            System.out.println(devUser.getId() + "===");
             appinfo.setDevId(devUser.getId());
         }
         //分页判断与查询
@@ -395,7 +389,7 @@ public class DevUserAppinfoController {
         //传出数据
         model.addAttribute("queryStatus", appinfo.getStatus());
         model.addAttribute("softwareName", appinfo.getSoftwareName());
-        session.setAttribute("pages", page);//分页
+        model.addAttribute("pages", page);//分页
         model.addAttribute("flatFormList", dataDictionarys1); //  平台
         model.addAttribute("statusList", dataDictionarys2); // app状态
         model.addAttribute("categoryLevel1List", appCategory.getAppCategoryByparentId(null));
@@ -429,7 +423,7 @@ public class DevUserAppinfoController {
     @ResponseBody
     public Map<String, Object> apkexist(String APKName) {
         Map<String, Object> map = new HashMap<>();
-        if (appinfoService.apkexist(APKName) < 0) {
+        if (appinfoService.apkexist(APKName) <=0) {
             map.put("APKName", "noexist");
         } else if (APKName == null) {
             map.put("APKName", "empty");
