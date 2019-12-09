@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sp.appinfo.dao.AppVersionMapper">
+    <!--    查询对应app的APK信息-->
+    <select id="getAppVersionByid" resultType="AppVersion">
+       SELECT `softwareName` AS appName,`versionNo`,versionSize,(SELECT `valueName` FROM `data_dictionary` WHERE a.status = valueId AND typeCode='APP_STATUS') as publishStatusName,
+        apkFileName,v.creationDate AS modifyDate,downloadLink,apkLocPath
+        FROM `app_info` AS a
+        INNER JOIN `app_version` AS v ON v.appId = a.id
+        WHERE v.appid = #{id}
+    </select>
+    <!--    增加APK信息-->
+    <insert id="addAppVersion">
+        insert into app_version(appId,versionNo,versionInfo,publishStatus,downloadLink,versionSize,apkLocPath,apkFileName,createdBy,creationDate)
+		values (#{appId},#{versionNo},#{versionInfo},#{publishStatus},#{downloadLink},
+		#{versionSize},#{apkLocPath},#{apkFileName},#{createdBy},now())
+    </insert>
+    <!--    查询对应APP最新APK-->
+    <select id="getNewAppVersionByappid" resultType="AppVersion">
+        SELECT * FROM `app_version`
+        <where>
+            <if test="appId!=null">and appId = #{appId}</if>
+            <if test="id !=null">and id = #{id}</if>
+        </where>
+        ORDER BY creationDate DESC
+        LIMIT 1
+    </select>
+    <delete id="deleteAppVersionByappid">
+        delete from app_version where appId = #{appId}
+    </delete>
+    <update id="updateAppVersion">
+        update app_version
+
+        <trim prefix="set" suffix="where id=#{id}" suffixOverrides=",">
+
+        <if test="versionNo != null">versionNo=#{versionNo},</if>
+
+        <if test="versionInfo != null">versionInfo=#{versionInfo},</if>
+
+        <if test="publishStatus != null">publishStatus=#{publishStatus},</if>
+
+        <if test="downloadLink != null">downloadLink=#{downloadLink},</if>
+
+        <if test="apkLocPath != null">apkLocPath=#{apkLocPath},</if>
+
+        <if test="versionSize != null">versionSize=#{versionSize},</if>
+
+        <if test="apkFileName != null">apkFileName=#{apkFileName},</if>
+
+        <if test="modifyBy != null">modifyBy=#{modifyBy},</if>
+
+        <if test="modifyDate != null">modifyDate=#{modifyDate},</if>
+
+    </trim>
+    </update>
+    <update id="updateFilePathForNullById">
+        update app_version set downloadLink=null,apkLocPath=null,apkFileName=null
+        where id = #{id}
+    </update>
+</mapper>
