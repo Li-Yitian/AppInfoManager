@@ -220,7 +220,7 @@ public class DevUserAppinfoController {
         //获得上传文件后缀
         String extension = FilenameUtils.getExtension(attach.getOriginalFilename());
         if(extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")
-                ||extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("pneg")) {//上传图片格式
+                ||extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")||attach.isEmpty()) {//上传图片格式
             //拼接新的文件名，判断上传的文件非空
             if (!attach.isEmpty()) {
                 String newFileName = UUIDTool.getUUID() + "." + extension;
@@ -236,7 +236,6 @@ public class DevUserAppinfoController {
                 //从数据库中查询出图片路径，用于前台页面显示图片
                 //保存文件
                 attach.transferTo(new File(fullPath));
-
             } else {
                 appInfo.setLogoPicPath(null);//显示的图片路径
                 appInfo.setLogoLocPath(null);//服务器图片完整路径

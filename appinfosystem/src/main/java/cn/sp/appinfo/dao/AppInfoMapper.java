@@ -1,7 +1,6 @@
 package cn.sp.appinfo.dao;
 
 import cn.sp.appinfo.pojo.AppInfo;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Appinfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -17,7 +16,7 @@ public interface AppInfoMapper {
     //读取app总数
     public Integer getAppinfoRows(@Param("app") AppInfo appinfo);
     //分页读取app信息
-    public List<Appinfo> getAppInfoByPage(@Param("app") AppInfo appinfo,@Param("first") Integer first,@Param("pageSize") Integer pageSize);
+    public List<AppInfo> getAppInfoByPage(@Param("app") AppInfo appinfo,@Param("first") Integer first,@Param("pageSize") Integer pageSize);
     //添加App信息
     public Integer addAppInfo(AppInfo appInfo);
     //查询对应KAPKName

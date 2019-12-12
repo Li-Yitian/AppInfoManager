@@ -6,7 +6,6 @@ import cn.sp.appinfo.pojo.AppInfo;
 import cn.sp.appinfo.pojo.AppVersion;
 import cn.sp.appinfo.service.appinfoService.AppinfoService;
 import cn.sp.appinfo.tool.Page;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Appinfo;
 import org.apache.ibatis.transaction.Transaction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,7 +80,7 @@ public class AppinfoServiceImpl implements AppinfoService {
     @Override
     public void getAppinfoByPage(AppInfo appinfo, Page page) {
         page.setRows(appinfom.getAppinfoRows(appinfo));
-        List<Appinfo> list = appinfom.getAppInfoByPage(appinfo, page.getFirst(), page.getPageSize());
+        List<AppInfo> list = appinfom.getAppInfoByPage(appinfo, page.getFirst(), page.getPageSize());
         page.setList(list);
     }
     /**
